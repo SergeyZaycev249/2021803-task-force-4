@@ -1,7 +1,7 @@
 # Личный проект «TaskForce»
 
 * Студент: [Сергей Зайцев](https://up.htmlacademy.ru/yii/4/user/2021803).
-* Наставник: `Неизвестно`.
+* Наставник: [Даниил Стерликов](https://htmlacademy.ru/profile/id1588317).
 
 ---
 
