@@ -44,8 +44,8 @@ class Task
     //ID заказчика, исполнителя и текущий статус задачи
     function __construct(int $id_customer, int $id_executor, string $current_status)
     {
-        $this->customerId = $id_customer;
-        $this->executorId = $id_executor;
+        $this->id_customer = $id_customer;
+        $this->id_executor = $id_executor;
         $this->current_status = $current_status;
     }
 
