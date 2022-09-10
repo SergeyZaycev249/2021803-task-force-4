@@ -1,0 +1,16 @@
+{
+    "name": "yelya/2021803-task-force-4",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Sergey Zaytsev",
+            "email": "zaycev.sergey@mail.ru"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Zaytsev\\": "src/"
+        }
+    },
+    "require": {}
+}

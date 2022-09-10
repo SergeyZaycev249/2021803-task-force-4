@@ -1,4 +1,7 @@
 <?php
+
+namespace Zaytsev\routes;  
+
 class Task
 {
     //Статусы
@@ -14,8 +17,8 @@ class Task
     const ACTION_DONE = 'done';
     const ACTION_REFUSE = 'refuse';
 
-    private $id_customer;
-    private $id_executor;
+    private $customer_id;
+    private $executor_id;
     private $current_status;
 
     //Карта статусов
@@ -42,10 +45,10 @@ class Task
     }
 
     //ID заказчика, исполнителя и текущий статус задачи
-    function __construct(int $id_customer, int $id_executor, string $current_status)
+    function __construct(int $customer_id, int $executor_id, string $current_status)
     {
-        $this->id_customer = $id_customer;
-        $this->id_executor = $id_executor;
+        $this->customer_id = $customer_id;
+        $this->executor_id = $executor_id;
         $this->current_status = $current_status;
     }
 
