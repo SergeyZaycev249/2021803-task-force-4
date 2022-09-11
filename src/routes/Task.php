@@ -1,6 +1,6 @@
 <?php
 
-namespace Zaytsev\routes;  
+namespace Taskforce\routes;
 
 class Task
 {
@@ -66,16 +66,16 @@ class Task
     }
 
     //Доступные действия
-    function getAvailableActions(int $id_user, string $current_status): string
+    function getAvailableActions(int $user_id, string $current_status): string
     {
-        if ($id_user === $this->id_customer) {
+        if ($user_id === $this->customer_id) {
             $availableActions = [
                 self::STATUS_NEW => self::ACTION_CANCEL,
                 self::STATUS_WORK => self::ACTION_DONE
             ];
             return $availableActions[$current_status];
         }
-        if ($id_user === $this->id_executor) {
+        if ($user_id === $this->executor_id) {
             $availableActions = [
                 self::STATUS_NEW => self::ACTION_RESPOND,
                 self::STATUS_WORK => self::ACTION_REFUSE

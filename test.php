@@ -1,7 +1,7 @@
 <?php
 
 require_once "vendor/autoload.php";
-use Zaytsev\routes\Task;
+use Taskforce\routes\Task;
 
 $task = new Task(1, 2, 'new');
 
