@@ -1,6 +1,7 @@
 <?php
 
-require_once 'classes/task.php';
+require_once "vendor/autoload.php";
+use Taskforce\routes\Task;
 
 $task = new Task(1, 2, 'new');
 
