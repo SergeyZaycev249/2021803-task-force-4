@@ -7,7 +7,7 @@ class Task
     //Статусы
     const STATUS_NEW = 'new';
     const STATUS_CANCELLED = 'cancelled';
-    const STATUS_WORK = 'at work';
+    const STATUS_WORK = 'at_work';
     const STATUS_DONE = 'done';
     const STATUS_FAILED = 'failed';
 
