@@ -18,16 +18,16 @@ CREATE TABLE users (
     role enum('executor', 'customer') NOT NULL,
     date_registration TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     avatar CHAR(255) NOT NULL,
-    birthday DATE DEFAULT (CURRENT_DATE),
+    birthday DATE,
     phone_number VARCHAR(32),
     telegram VARCHAR(255),
     city_id INT NOT NULL,
-    vk VARCHAR(255) UNIQUE,
+    vk VARCHAR(255) UNIQUE
 );
 CREATE TABLE user_categories (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
-    category_id INT NOT NULL,
+    category_id INT NOT NULL
 );
 CREATE TABLE tasks (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -49,7 +49,7 @@ CREATE TABLE tasks (
     ),
     category_id INT NOT NULL,
     deadline TIMESTAMP,
-    create_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    create_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 CREATE TABLE reviews (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -57,14 +57,14 @@ CREATE TABLE reviews (
     content TEXT NOT NULL,
     user_id INT NOT NULL,
     grade INT,
-    task_id INT NOT NULL,
+    task_id INT NOT NULL
 );
 CREATE TABLE responses (
     id INT AUTO_INCREMENT PRIMARY KEY,
     task_id INT NOT NULL,
     executor_id INT NOT NULL,
     content TEXT NOT NULL,
-    price INT,
+    price INT
 );
 
 ALTER TABLE users
