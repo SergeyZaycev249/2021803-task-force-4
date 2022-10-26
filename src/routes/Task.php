@@ -28,7 +28,7 @@ class Task
     private $current_status;
 
     //Карта статусов
-    function getStatusTask(): array
+    public function getStatusTask(): array
     {
         return [
             self::STATUS_NEW => 'Новое',
@@ -40,7 +40,7 @@ class Task
     }
 
     //Карта действий
-    function getActionTask(): array
+    public function getActionTask(): array
     {
         return [
             ActionCancel::class => ActionCancel::getName(),
@@ -51,7 +51,7 @@ class Task
     }
 
     //ID заказчика, исполнителя и текущий статус задачи
-    function __construct(int $customer_id, int $executor_id, string $current_status)
+    public function __construct(int $customer_id, int $executor_id, string $current_status)
     {
         $this->customer_id = $customer_id;
         $this->executor_id = $executor_id;
@@ -59,7 +59,7 @@ class Task
     }
 
     //Изменение статуса
-    function getChangeStatus(string $action): string
+    public function getChangeStatus(string $action): string
     {
 
         $changeStatus = [
@@ -72,13 +72,13 @@ class Task
     }
 
     //Доступные действия
-    function getAvailableActions(int $user_id, string $current_status): string
+    public function getAvailableActions(int $user_id, string $current_status): ?object
     {
-        if ($this->current_status === self::STATUS_NEW && ActionCancel::checkRights($user_id, $this->customer_id)) return new ActionCancel();
-        if ($this->current_status === self::STATUS_NEW && ActionRespond::checkRights($user_id, $this->customer_id, $this->executor_id)) return new ActionRespond();
-        if ($this->current_status === self::STATUS_WORK && ActionDone::checkRights($user_id, $this->customer_id, $this->executor_id)) return new ActionDone();
-        if ($this->current_status === self::STATUS_WORK && ActionRefuse::checkRights($user_id, $this->customer_id, $this->executor_id)) return new ActionRefuse();
-        
-        return 'Пользователь не определён';
+        if ($current_status === self::STATUS_NEW && ActionCancel::checkRights($user_id, $this->customer_id, $this->executor_id)) return new ActionCancel();
+        if ($current_status === self::STATUS_NEW && ActionRespond::checkRights($user_id, $this->customer_id, $this->executor_id)) return new ActionRespond();
+        if ($current_status === self::STATUS_WORK && ActionDone::checkRights($user_id, $this->customer_id, $this->executor_id)) return new ActionDone();
+        if ($current_status === self::STATUS_WORK && ActionRefuse::checkRights($user_id, $this->customer_id, $this->executor_id)) return new ActionRefuse();
+
+        return null;
     }
 }

@@ -1,22 +1,29 @@
 <?php
 
 require_once "vendor/autoload.php";
+
 use Taskforce\routes\Task;
+$status1 = 'new';
+$status2 = 'at_work';
+$status3 = 'cancelled';
+$status4 = 'done';
 
-$task = new Task(1, 2, 'new');
+$task1 = new Task(3,1,$status1);
+$task2 = new Task(1,2,$status2);
+$task3 = new Task(5,6,$status3);
+$task4 = new Task(6,2,$status4);
 
-// Создание обработчика
-function my_assert_handler($file, $line, $code)
-{
-    echo "<hr>Неудачная проверка утверждения:
-        Файл '$file'<br />
-        Строка '$line'<br />
-        Код '$code'<br /><hr />";
-}
 
-// Подключение callback-функции
-assert_options(ASSERT_CALLBACK, 'my_assert_handler');
+$mapAction = $task1->getStatusTask();
+$mapStatus = $task1->getActionTask();
+var_dump($mapAction,$mapStatus);
+$availableAction1 = $task1 ->getAvailableActions(3,$status1);
+$availableAction2 = $task1 ->getAvailableActions(1,$status1);
+$availableAction3 = $task2 ->getAvailableActions(1,$status2);
+$availableAction4 = $task2 ->getAvailableActions(2,$status2);
+$availableAction5 = $task3 ->getAvailableActions(5,$status3);
+$availableAction6 = $task3 ->getAvailableActions(6,$status3);
+$availableAction7 = $task4 ->getAvailableActions(6,$status4);
+$availableAction8 = $task4 ->getAvailableActions(2,$status4);
 
-assert($task->getChangeStatus(Task::ACTION_CANCEL) === Task::STATUS_CANCELLED, 'cancelled');
-assert($task->getAvailableActions(2, Task::STATUS_NEW) === Task::ACTION_RESPOND, 'respond');
-assert($task->getAvailableActions(1, Task::STATUS_WORK) === Task::ACTION_DONE, 'done');
+var_dump($availableAction1,$availableAction2,$availableAction3,$availableAction4,$availableAction5,$availableAction6,$availableAction7,$availableAction8);
