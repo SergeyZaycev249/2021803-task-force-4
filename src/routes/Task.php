@@ -2,6 +2,7 @@
 
 namespace Taskforce\routes;
 
+use Taskforce\actions\AbstractAction;
 use Taskforce\actions\ActionCancel;
 use Taskforce\actions\ActionDone;
 use Taskforce\actions\ActionRefuse;
@@ -72,7 +73,7 @@ class Task
     }
 
     //Доступные действия
-    public function getAvailableActions(int $user_id, string $current_status): ?object
+    public function getAvailableActions(int $user_id, string $current_status): ?AbstractAction
     {
         if ($current_status === self::STATUS_NEW && ActionCancel::checkRights($user_id, $this->customer_id, $this->executor_id)) return new ActionCancel();
         if ($current_status === self::STATUS_NEW && ActionRespond::checkRights($user_id, $this->customer_id, $this->executor_id)) return new ActionRespond();

@@ -3,6 +3,7 @@
 require_once "vendor/autoload.php";
 
 use Taskforce\routes\Task;
+
 $status1 = 'new';
 $status2 = 'at_work';
 $status3 = 'cancelled';
@@ -14,16 +15,28 @@ $task3 = new Task(5,6,$status3);
 $task4 = new Task(6,2,$status4);
 
 
-$mapAction = $task1->getStatusTask();
-$mapStatus = $task1->getActionTask();
-var_dump($mapAction,$mapStatus);
-$availableAction1 = $task1 ->getAvailableActions(3,$status1);
-$availableAction2 = $task1 ->getAvailableActions(1,$status1);
-$availableAction3 = $task2 ->getAvailableActions(1,$status2);
-$availableAction4 = $task2 ->getAvailableActions(2,$status2);
-$availableAction5 = $task3 ->getAvailableActions(5,$status3);
-$availableAction6 = $task3 ->getAvailableActions(6,$status3);
-$availableAction7 = $task4 ->getAvailableActions(6,$status4);
-$availableAction8 = $task4 ->getAvailableActions(2,$status4);
+assert_options(ASSERT_ACTIVE, 1);
+assert_options(ASSERT_WARNING, 0);
 
-var_dump($availableAction1,$availableAction2,$availableAction3,$availableAction4,$availableAction5,$availableAction6,$availableAction7,$availableAction8);
+// Создание обработчика
+function my_assert_handler($file, $line, $code, $desc = null)
+{
+    echo "Неудачная проверка утверждения в $file:$line: $code";
+    if ($desc) {
+        echo ": $desc";
+    }
+    echo "\n";
+}
+
+// Подключение callback-функции
+assert_options(ASSERT_CALLBACK, 'my_assert_handler');
+
+// Выполнение проверки утверждения, которое завершится неудачей
+assert($task1->getAvailableActions(3,Task::STATUS_NEW) === [ActionCancel::class]);
+assert($task1->getAvailableActions(1,Task::STATUS_WORK) === [ActionRefuse::class]);
+assert($task2->getAvailableActions(3,Task::STATUS_NEW) === [ActionCancel::class]);
+assert($task2->getAvailableActions(1,Task::STATUS_WORK) === [ActionDone::class]);
+assert($task3->getAvailableActions(5,Task::STATUS_NEW) === [ActionRefuse::class]);
+assert($task3->getAvailableActions(6,Task::STATUS_WORK) === [ActionRespond::class]);
+assert($task4->getAvailableActions(2,Task::STATUS_NEW) === [ActionDone::class]);
+assert($task4->getAvailableActions(6,Task::STATUS_WORK) === [ActionRespond::class]);
