@@ -9,7 +9,7 @@ class ActionRefuse extends AbstractAction
         return 'Отказаться';
     }
 
-    public static function checkRights(int $user_id, int $executor_id, int $customer_id): bool
+    public static function checkRights(int $user_id, int $customer_id, int $executor_id): bool
     {
         return $user_id === $executor_id;
     }
