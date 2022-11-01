@@ -36,11 +36,11 @@ function my_assert_handler($file, $line, $code, $desc = null)
 assert_options(ASSERT_CALLBACK, 'my_assert_handler');
 
 // Выполнение проверки утверждения, которое завершится неудачей
-assert($task1->getAvailableActions(3,Task::STATUS_NEW) == new ActionCancel,'Должно быть Taskforce\actions\ActionCancel');
-assert($task1->getAvailableActions(1,Task::STATUS_WORK) == new ActionRefuse,'Должно быть Taskforce\actions\ActionRefuse');
-assert($task2->getAvailableActions(3,Task::STATUS_NEW) == new ActionCancel,'Должно быть NULL');
-assert($task2->getAvailableActions(1,Task::STATUS_WORK) == new ActionDone,'Должно быть Taskforce\actions\ActionDone');
-assert($task3->getAvailableActions(5,Task::STATUS_NEW) == new ActionRefuse,'Должно быть Taskforce\actions\ActionCancel');
-assert($task3->getAvailableActions(6,Task::STATUS_WORK) == new ActionRespond,'Должно быть Taskforce\actions\ActionRefuse');
-assert($task4->getAvailableActions(2,Task::STATUS_NEW) == new ActionDone,'Должно быть Taskforce\actions\ActionRespond');
-assert($task4->getAvailableActions(6,Task::STATUS_WORK) == new ActionRespond,'Должно быть Taskforce\actions\ActionDone');
+assert(get_class($task1->getAvailableActions(3,Task::STATUS_NEW)) === ActionCancel::class,'Должно быть Taskforce\actions\ActionCancel');
+assert(get_class($task1->getAvailableActions(1,Task::STATUS_WORK)) === ActionRefuse::class,'Должно быть Taskforce\actions\ActionRefuse');
+assert(get_class($task2->getAvailableActions(3,Task::STATUS_NEW)) === ActionCancel::class,'Должно быть NULL');
+assert(get_class($task2->getAvailableActions(1,Task::STATUS_WORK)) === ActionDone::class,'Должно быть Taskforce\actions\ActionDone');
+assert(get_class($task3->getAvailableActions(5,Task::STATUS_NEW)) === ActionRefuse::class,'Должно быть Taskforce\actions\ActionCancel');
+assert(get_class($task3->getAvailableActions(6,Task::STATUS_WORK)) === ActionRespond::class,'Должно быть Taskforce\actions\ActionRefuse');
+assert(get_class($task4->getAvailableActions(2,Task::STATUS_NEW)) === ActionDone::class,'Должно быть Taskforce\actions\ActionRespond');
+assert(get_class($task4->getAvailableActions(6,Task::STATUS_WORK)) === ActionRespond::class,'Должно быть Taskforce\actions\ActionDone');
