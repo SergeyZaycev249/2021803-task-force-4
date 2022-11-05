@@ -8,10 +8,10 @@ use Taskforce\actions\ActionDone;
 use Taskforce\actions\ActionRefuse;
 use Taskforce\actions\ActionRespond;
 
-$status1 = 'new';
-$status2 = 'at_work';
-$status3 = 'cancelled';
-$status4 = 'done';
+$status1 = 'Новое';
+$status2 = 'В работе';
+$status3 = 'Отменено';
+$status4 = 'Выполнено';
 
 $task1 = new Task(3,1,$status1);
 $task2 = new Task(1,2,$status2);
@@ -44,3 +44,5 @@ assert(get_class($task3->getAvailableActions(5,Task::STATUS_NEW)) === ActionCanc
 assert(get_class($task3->getAvailableActions(6,Task::STATUS_WORK)) === ActionRefuse::class);
 assert(get_class($task4->getAvailableActions(2,Task::STATUS_NEW)) === ActionRespond::class);
 assert(get_class($task4->getAvailableActions(6,Task::STATUS_WORK)) === ActionDone::class);
+
+var_dump($task1->getChangeStatus('Taskforce\actions\ActionCancel'));
