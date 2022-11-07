@@ -29,7 +29,7 @@ class Task
     private $current_status;
 
     //Карта статусов
-    public function getStatusTask(): array
+    public function getStatusNames(): array
     {
         return [
             self::STATUS_NEW => 'Новое',
@@ -60,7 +60,7 @@ class Task
         if ($customer_id === $executor_id) {
             throw new TaskException('Заказчик не может быть одновременно исполнителем');
         }
-        if (!array_search($current_status, $this->getStatusTask())) {
+        if (!array_key_exists($current_status,$this->getStatusNames())) {
             throw new TaskException('Такого статуса не существует');
         }
         $this->customer_id = $customer_id;
