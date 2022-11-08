@@ -7,7 +7,7 @@ use Taskforce\actions\ActionCancel;
 use Taskforce\actions\ActionDone;
 use Taskforce\actions\ActionRefuse;
 use Taskforce\actions\ActionRespond;
-
+use Taskforce\exceptions\TaskException;
 
 class Task
 {
@@ -29,7 +29,7 @@ class Task
     private $current_status;
 
     //Карта статусов
-    public function getStatusTask(): array
+    public function getStatusNames(): array
     {
         return [
             self::STATUS_NEW => 'Новое',
@@ -54,6 +54,15 @@ class Task
     //ID заказчика, исполнителя и текущий статус задачи
     public function __construct(int $customer_id, int $executor_id, string $current_status)
     {
+        if ($customer_id === 0) {
+            throw new TaskException('Неверный id заказчика');
+        }
+        if ($customer_id === $executor_id) {
+            throw new TaskException('Заказчик не может быть одновременно исполнителем');
+        }
+        if (!array_key_exists($current_status,$this->getStatusNames())) {
+            throw new TaskException('Такого статуса не существует');
+        }
         $this->customer_id = $customer_id;
         $this->executor_id = $executor_id;
         $this->current_status = $current_status;
@@ -63,13 +72,13 @@ class Task
     public function getChangeStatus(string $action): string
     {
 
-        $changeStatus = [
+        return match ($action) {
             ActionCancel::class => self::STATUS_CANCELLED,
             ActionRespond::class => self::STATUS_WORK,
             ActionDone::class => self::STATUS_DONE,
-            ActionRefuse::class => self::STATUS_FAILED
-        ];
-        return $changeStatus[$action];
+            ActionRefuse::class => self::STATUS_FAILED,
+            default => throw new TaskException('Передано неизвестное действие')
+        };
     }
 
     //Доступные действия
@@ -80,6 +89,6 @@ class Task
         if ($current_status === self::STATUS_WORK && ActionDone::checkRights($user_id, $this->customer_id, $this->executor_id)) return new ActionDone();
         if ($current_status === self::STATUS_WORK && ActionRefuse::checkRights($user_id, $this->customer_id, $this->executor_id)) return new ActionRefuse();
 
-        return null;
+        throw new TaskException('Нет доступных действий');
     }
 }

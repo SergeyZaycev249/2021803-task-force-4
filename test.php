@@ -44,3 +44,5 @@ assert(get_class($task3->getAvailableActions(5,Task::STATUS_NEW)) === ActionCanc
 assert(get_class($task3->getAvailableActions(6,Task::STATUS_WORK)) === ActionRefuse::class);
 assert(get_class($task4->getAvailableActions(2,Task::STATUS_NEW)) === ActionRespond::class);
 assert(get_class($task4->getAvailableActions(6,Task::STATUS_WORK)) === ActionDone::class);
+
+var_dump($task1->getChangeStatus('Taskforce\actions\ActionCancel'));
