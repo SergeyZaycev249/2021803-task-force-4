@@ -8,10 +8,10 @@ use Taskforce\actions\ActionDone;
 use Taskforce\actions\ActionRefuse;
 use Taskforce\actions\ActionRespond;
 
-$status1 = 'new';
-$status2 = 'at_work';
-$status3 = 'cancelled';
-$status4 = 'done';
+$status1 = Task::STATUS_NEW;
+$status2 = Task::STATUS_WORK;
+$status3 = Task::STATUS_CANCELLED;
+$status4 = Task::STATUS_DONE;
 
 $task1 = new Task(3,1,$status1);
 $task2 = new Task(1,2,$status2);

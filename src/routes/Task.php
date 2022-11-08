@@ -18,12 +18,6 @@ class Task
     const STATUS_DONE = 'done';
     const STATUS_FAILED = 'failed';
 
-    //Действия
-    const ACTION_CANCEL = 'cancel';
-    const ACTION_RESPOND = 'respond';
-    const ACTION_DONE = 'done';
-    const ACTION_REFUSE = 'refuse';
-
     private $customer_id;
     private $executor_id;
     private $current_status;
