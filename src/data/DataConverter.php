@@ -11,7 +11,7 @@ use Taskforce\exceptions\TaskException;
 class DataConverter
 {
     private string $csvFileName;
-    private array $columns;
+    public array $columns;
     private object $fileObject;
     private string $tableSqlName;
     private string $sqlFileName;
@@ -40,7 +40,7 @@ class DataConverter
         }
 
         $headerData = $this->getHeaderData();
-        if ($headerData !== $this->columns) {
+        if (!empty(array_diff($headerData, $this->columns))) {
             throw new TaskException('Исходный файл не содержит необходимых столбцов');
         }
 
@@ -54,10 +54,10 @@ class DataConverter
         return $this->result;
     }
 
-    private function getHeaderData(): ?array
+    public function getHeaderData(): ?array
     {
         $this->fileObject->rewind();
-        $data = $this->fileObject->fgetcsv();
+        $data = preg_replace('/[\x00-\x1F\x7F-\xFF]/', '',$this->fileObject->fgetcsv());
 
         return $data;
     }
