@@ -3,12 +3,13 @@ USE taskForce;
 CREATE TABLE categories(
     id INT AUTO_INCREMENT PRIMARY KEY,
     name CHAR(64) NOT NULL
+    icon VARCHAR (32)
 );
-CREATE TABLE city (
+CREATE TABLE cities (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
-    latitude DECIMAL NOT NULL,
-    longitude DECIMAL NOT NULL
+    latitude DECIMAL(11, 8) NOT NULL,
+    longitude DECIMAL(11, 8) NOT NULL
 );
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -34,8 +35,8 @@ CREATE TABLE tasks (
     title VARCHAR(128) NOT NULL,
     description TEXT DEFAULT NULL,
     file VARCHAR(320) DEFAULT NULL,
-    latitude FLOAT,
-    longitude FLOAT,
+    lat FLOAT,
+    long FLOAT,
     city_id INT,
     price INT NOT NULL,
     customer_id INT NOT NULL,
